@@ -35,8 +35,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_20_160743) do
 
   create_table "custom_field_definitions", force: :cascade do |t|
     t.bigint "client_id", null: false
-    t.string "field_name"
-    t.integer "field_type"
+    t.string "field_name", null: false
+    t.integer "field_type", null: false
     t.text "enum_options"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

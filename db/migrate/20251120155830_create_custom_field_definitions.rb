@@ -2,8 +2,8 @@ class CreateCustomFieldDefinitions < ActiveRecord::Migration[7.2]
   def change
     create_table :custom_field_definitions do |t|
       t.references :client, null: false, foreign_key: true
-      t.string :field_name
-      t.integer :field_type
+      t.string :field_name, null: false
+      t.integer :field_type, null: false
       t.text :enum_options
 
       t.timestamps

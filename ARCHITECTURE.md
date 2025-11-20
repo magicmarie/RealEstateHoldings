@@ -14,11 +14,6 @@ This Rails API backend manages a multi-tenant building management system with dy
 - Manages transactions for atomic operations
 - Centralizes error handling
 
-**Benefits:**
-- Controllers stay thin (SRP)
-- Business logic is reusable
-- Easier to test in isolation
-- Clear separation of concerns
 
 ### 2. Polymorphic Custom Fields
 **Why:** Support dynamic, client-specific fields without schema changes.
@@ -28,12 +23,6 @@ This Rails API backend manages a multi-tenant building management system with dy
 - `CustomFieldValue`: Stores actual values with type validation
 - Three field types: number, freeform, enum_type
 
-**Benefits:**
-- No schema migrations for new fields
-- Client isolation (fields are client-scoped)
-- Type safety with custom validations
-- Flexible and extensible
-
 ### 3. ActiveModel Serializers
 **Why:** Consistent, clean JSON responses without exposing internal structure.
 
@@ -42,10 +31,6 @@ This Rails API backend manages a multi-tenant building management system with dy
 - `ClientSerializer`: Includes nested field definitions
 - Avoids exposing internal IDs and timestamps unnecessarily
 
-**Benefits:**
-- API contract stays stable even if models change
-- Clean, predictable JSON structure
-- Easy to version if needed
 
 ### 4. Eager Loading & N+1 Prevention
 **Why:** Performance optimization to avoid database query explosions.
@@ -55,11 +40,6 @@ This Rails API backend manages a multi-tenant building management system with dy
 Building.includes(:client, :custom_field_values, client: :custom_field_definitions)
 ```
 
-**Benefits:**
-- Single query instead of N+1
-- Bullet gem monitors for violations
-- Fast response times even with large datasets
-
 ### 5. Caching Strategy
 **Why:** Reduce database load for frequently accessed, rarely changed data.
 
@@ -68,10 +48,6 @@ Building.includes(:client, :custom_field_values, client: :custom_field_definitio
 - Auto-invalidation via `ClientCacheable` concern
 - Simple Rails.cache for MVP
 
-**Benefits:**
-- Faster API responses
-- Reduced database queries
-- Easy to swap cache backend (Redis, Memcached)
 
 ### 6. Error Handling
 **Why:** Clear, actionable error messages for API consumers.
@@ -82,10 +58,6 @@ Building.includes(:client, :custom_field_values, client: :custom_field_definitio
 - Validation errors return full messages array
 - Service layer catches and translates exceptions
 
-**Benefits:**
-- Consistent error format
-- Helpful debugging information
-- Proper HTTP status codes
 
 ### 7. Database Indexes
 **Why:** Optimize query performance on foreign keys and lookups.
@@ -95,10 +67,6 @@ Building.includes(:client, :custom_field_values, client: :custom_field_definitio
 - Foreign key indexes on all belongs_to relationships
 - Unique indexes for business constraints
 
-**Benefits:**
-- Fast lookups and joins
-- Enforced data integrity
-- Scalable for large datasets
 
 ## Data Model
 
@@ -133,24 +101,7 @@ Building.includes(:client, :custom_field_values, client: :custom_field_definitio
 └─────────────────────┘
 ```
 
-## Testing Strategy
 
-### Unit Tests (Models)
-- Validations and associations
-- Custom validation logic
-- Type conversions
-
-### Integration Tests (Requests)
-- Full HTTP request/response cycle
-- API contract validation
-- Error handling scenarios
-
-### Service Tests
-- Business logic isolation
-- Transaction rollback behavior
-- Error propagation
-
-**Coverage:** 50 passing tests across models, services, and API endpoints.
 
 ## Performance Optimizations
 
@@ -163,10 +114,6 @@ Building.includes(:client, :custom_field_values, client: :custom_field_definitio
 ## Security Considerations
 
 1. **No Authentication**: Per requirements (would add JWT/OAuth in production)
-2. **CSRF Protection**: Disabled for API with `null_session`
-3. **SQL Injection**: Protected by ActiveRecord parameterization
-4. **Mass Assignment**: Strong parameters in controllers
-5. **Validation**: Server-side validation prevents invalid data
 
 ## Scalability Considerations
 
@@ -186,3 +133,11 @@ Building.includes(:client, :custom_field_values, client: :custom_field_definitio
 6. **File Uploads**: ActiveStorage for building images
 7. **API Rate Limiting**: Rack::Attack for DoS protection
 8. **Monitoring**: NewRelic/Datadog for performance tracking
+9. **Bulk Import with Background Jobs**: Implement async bulk building imports using Sidekiq/ActiveJob for large datasets (1000+ buildings). Features would include:
+   - Asynchronous processing to avoid blocking requests
+   - Progress tracking via Redis or database
+   - Email/webhook notifications on completion
+   - CSV/JSON file upload support
+   - Partial failure handling with detailed error reports
+   - Transaction batching for optimal performance
+

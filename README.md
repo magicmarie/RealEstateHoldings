@@ -2,7 +2,7 @@
 
 A full-stack Rails + React application for managing commercial real estate buildings with dynamic, client-specific custom fields.
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 This application implements a multi-tenant building management system where:
 - **Clients** can create and manage their buildings via API
@@ -53,32 +53,17 @@ Visit http://localhost:3000
 
 See [API_DOCUMENTATION.md](API_DOCUMENTATION.md) for complete API reference.
 
-
-
-## 🗄️ Database Schema
-
-```
-Clients (5 seeded)
-├── Buildings (17 seeded)
-│   └── CustomFieldValues (43 seeded)
-└── CustomFieldDefinitions (15 seeded)
-```
-
 **Custom Field Types:**
 - **Number**: Numeric values (e.g., square footage, year built)
 - **Freeform**: Text strings (e.g., description, special features)
 - **Enum**: Predefined choices (e.g., property type, condition)
 
-
-
 ```bash
 # Run all tests
 bundle exec rspec
+```
 
-
-
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 app/
@@ -98,15 +83,16 @@ db/
 └── seeds.rb                # Sample data
 ```
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Backend**: Ruby on Rails 7.2.1
 - **Database**: PostgreSQL
 - **Frontend**: React + esbuild
 - **Testing**: RSpec
 - **Performance**: Kaminari (pagination), Bullet (N+1 detection)
+- **Testing**: RSpec with 53 passing tests
 
-## 📊 Performance Optimizations
+## Performance Optimizations
 
 1. **Eager Loading**: Prevents N+1 queries
 2. **Caching**: Client data cached (1 hour TTL)
@@ -114,31 +100,6 @@ db/
 4. **Indexes**: Composite indexes on frequently queried fields
 5. **Bullet Gem**: Development N+1 query alerts
 
-## 🔒 Security Notes
+## Security Notes
 
 - No authentication (per requirements)
-- CSRF protection disabled for API endpoints
-- SQL injection protected via ActiveRecord
-- Mass assignment protected via strong parameters
-- Server-side validation on all inputs
-
-## 🚦 Production Readiness Checklist
-
-Backend:
-- [x] Database schema with proper indexes
-- [x] API endpoints with error handling  
-- [x] Validation and business logic
-- [x] Service layer with transactions
-- [x] Performance optimizations (N+1 prevention, caching)
-- [x] Comprehensive test coverage (53 passing tests)
-- [x] Documentation (README, API docs, Architecture)
-
-Frontend:
-- [x] React components with proper separation
-- [x] API integration with error handling
-- [x] Create/Edit forms with dynamic custom fields
-- [x] Pagination with navigation
-- [x] React performance optimizations (memo, useCallback, useMemo)
-- [x] DRY principles with reusable components
-- [x] State management with hooks
-
