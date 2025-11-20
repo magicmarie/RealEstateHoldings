@@ -82,7 +82,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
-    brakeman (6.2.2)
+    brakeman (7.1.1)
       racc
     builder (3.3.0)
     bullet (8.1.0)
@@ -302,7 +302,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.14)
   bootsnap
-  brakeman
+  brakeman (~> 7.1)
   bullet
   debug
   dotenv-rails
