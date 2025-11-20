@@ -8,7 +8,7 @@ class CustomFieldValue < ApplicationRecord
     message: "already has a value for this custom field"
   }
 
-  validates :value_matches_field_type
+  validate :value_matches_field_type
 
   private
 
@@ -19,10 +19,12 @@ class CustomFieldValue < ApplicationRecord
 
     case definition.field_type
     when 'number'
-      unless numeric_string?(value)
+      begin
+        Float(value)
+      rescue ArgumentError, TypeError
         errors.add(:value, "must be a valid number for field '#{definition.field_name}'")
       end
-    when 'enum'
+    when 'enum_type'
       unless definition.enum_options.include?(value)
         errors.add(:value, "must be one of [#{definition.enum_options.join(', ')}] for field '#{definition.field_name}'")
       end
