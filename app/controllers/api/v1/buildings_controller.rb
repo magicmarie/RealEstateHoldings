@@ -6,6 +6,7 @@ class Api::V1::BuildingsController < ApplicationController
     # Eager load associations to prevent N+1 queries
     buildings = Building
       .includes(:client, :custom_field_values, client: :custom_field_definitions)
+      .order(created_at: :desc)
       .page(params[:page] || 1)
       .per(params[:per_page] || 20)
 

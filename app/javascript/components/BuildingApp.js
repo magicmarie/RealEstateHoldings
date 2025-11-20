@@ -96,7 +96,7 @@ const BuildingApp = () => {
         </div>
       )}
 
-      {showForm && (
+      {showForm && !editingBuilding && (
         <BuildingForm
           building={editingBuilding}
           clients={clients}
@@ -109,11 +109,23 @@ const BuildingApp = () => {
       <div>
         <h2>Buildings ({buildings.length})</h2>
         {buildings.map(building => (
-          <BuildingCard
-            key={building.id}
-            building={building}
-            onEdit={handleEdit}
-          />
+          <div key={building.id}>
+            <BuildingCard
+              building={building}
+              onEdit={handleEdit}
+            />
+            {editingBuilding?.id === building.id && showForm && (
+              <div style={{ marginTop: '16px', marginBottom: '24px' }}>
+                <BuildingForm
+                  building={editingBuilding}
+                  clients={clients}
+                  usStates={usStates}
+                  onSave={handleSave}
+                  onCancel={handleCancel}
+                />
+              </div>
+            )}
+          </div>
         ))}
       </div>
 
