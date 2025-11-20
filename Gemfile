@@ -16,6 +16,13 @@ gem "jsbundling-rails"
 # gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+
+# Serialization for APIs
+gem "active_model_serializers", "~> 0.10.14"
+
+# Pagination
+gem "kaminari"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -58,5 +65,8 @@ group :development do
 
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
   gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
+
+  # Detect N+1 queries
+  gem "bullet"
 end
 
