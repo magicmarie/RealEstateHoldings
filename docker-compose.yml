@@ -1,0 +1,30 @@
+services:
+  db:
+   image: postgres:16-alpine
+   volumes:
+     - postgres_data:/var/lib/postgresql/data
+   environment:
+     POSTGRES_DB: engineering_take_home_development
+     POSTGRES_USER: app
+     POSTGRES_PASSWORD: takehome
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && yarn && bundle && ./bin/dev"
+    volumes:
+      - .:/app
+    environment:
+      DB_HOST: db
+      DB_NAME: engineering_take_home_development
+      DB_USERNAME: app
+      DB_PASSWORD: takehome
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data: {}
+
+networks:
+  default:
+    name: app_default
