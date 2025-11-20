@@ -25,13 +25,13 @@ RSpec.describe CustomFieldValue, type: :model do
     end
 
     it 'validates enum_type field accepts valid enum option' do
-      field_def = CustomFieldDefinition.create!(client: client, field_name: 'property_type', field_type: :enum_type, enum_options: ['Commercial', 'Residential'])
+      field_def = CustomFieldDefinition.create!(client: client, field_name: 'property_type', field_type: :enum_type, enum_options: [ 'Commercial', 'Residential' ])
       field_value = CustomFieldValue.new(building: building, custom_field_definition: field_def, value: 'Commercial')
       expect(field_value).to be_valid
     end
 
     it 'validates enum_type field rejects invalid enum option' do
-      field_def = CustomFieldDefinition.create!(client: client, field_name: 'property_type', field_type: :enum_type, enum_options: ['Commercial', 'Residential'])
+      field_def = CustomFieldDefinition.create!(client: client, field_name: 'property_type', field_type: :enum_type, enum_options: [ 'Commercial', 'Residential' ])
       field_value = CustomFieldValue.new(building: building, custom_field_definition: field_def, value: 'Industrial')
       expect(field_value).not_to be_valid
       expect(field_value.errors[:value]).to include("must be one of [Commercial, Residential] for field 'property_type'")

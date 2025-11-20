@@ -5,14 +5,14 @@
 puts "Seeding database..."
 
 # Clear existing data
-[CustomFieldValue, Building, CustomFieldDefinition, Client].each(&:destroy_all)
+[ CustomFieldValue, Building, CustomFieldDefinition, Client ].each(&:destroy_all)
 
 clients_config = [
   {
     name: "Manhattan Luxury Properties",
     fields: [
       { name: "num_floors", type: :number },
-      { name: "has_doorman", type: :enum_type, options: ["Yes", "No"] },
+      { name: "has_doorman", type: :enum_type, options: [ "Yes", "No" ] },
       { name: "building_amenities", type: :freeform }
     ]
   },
@@ -20,7 +20,7 @@ clients_config = [
     name: "Brooklyn Industrial Spaces",
     fields: [
       { name: "ceiling_height_ft", type: :number },
-      { name: "loading_dock_type", type: :enum_type, options: ["Ground Level", "Elevated", "None"] },
+      { name: "loading_dock_type", type: :enum_type, options: [ "Ground Level", "Elevated", "None" ] },
       { name: "previous_use", type: :freeform }
     ]
   },
@@ -28,7 +28,7 @@ clients_config = [
     name: "Queens Residential Group",
     fields: [
       { name: "year_renovated", type: :number },
-      { name: "heating_type", type: :enum_type, options: ["Gas", "Electric", "Oil", "Steam"] },
+      { name: "heating_type", type: :enum_type, options: [ "Gas", "Electric", "Oil", "Steam" ] },
       { name: "neighborhood_notes", type: :freeform }
     ]
   },
@@ -36,7 +36,7 @@ clients_config = [
     name: "Bronx Community Housing",
     fields: [
       { name: "num_affordable_units", type: :number },
-      { name: "accessibility_rating", type: :enum_type, options: ["Full", "Partial", "Limited"] },
+      { name: "accessibility_rating", type: :enum_type, options: [ "Full", "Partial", "Limited" ] },
       { name: "community_features", type: :freeform }
     ]
   },
@@ -44,7 +44,7 @@ clients_config = [
     name: "Staten Island Commercial RE",
     fields: [
       { name: "parking_spaces", type: :number },
-      { name: "zoning_type", type: :enum_type, options: ["Commercial", "Mixed Use", "Industrial"] },
+      { name: "zoning_type", type: :enum_type, options: [ "Commercial", "Mixed Use", "Industrial" ] },
       { name: "special_features", type: :freeform }
     ]
   }
@@ -66,7 +66,7 @@ clients_config.each do |config|
   # Create 3-5 buildings per client
   rand(3..5).times do |i|
     building = client.buildings.create!(
-      address: "#{rand(1..999)} #{['Main St', 'Broadway', 'Park Ave', 'Ocean Pkwy'].sample}",
+      address: "#{rand(1..999)} #{[ 'Main St', 'Broadway', 'Park Ave', 'Ocean Pkwy' ].sample}",
       city: config[:name].split.first,
       state: "NY",
       zip_code: "#{10000 + rand(1..500)}"
@@ -82,7 +82,7 @@ clients_config.each do |config|
       when 'enum_type'
         field_def.enum_options.sample
       when 'freeform'
-        ["Excellent condition", "Recently updated", "Needs renovation", "Historic building"].sample
+        [ "Excellent condition", "Recently updated", "Needs renovation", "Historic building" ].sample
       end
 
       building.custom_field_values.create!(
@@ -101,4 +101,3 @@ puts "  - #{Client.count} clients"
 puts "  - #{CustomFieldDefinition.count} custom field definitions"
 puts "  - #{Building.count} buildings"
 puts "  - #{CustomFieldValue.count} custom field values"
-

@@ -9,8 +9,8 @@ class CreateBuildings < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
-    
+
     # ensure a client cannot have two buildings with the same address
-    add_index :buildings, [:client_id, :address, :city, :state, :zip_code], unique: true
+    add_index :buildings, [ :client_id, :address, :city, :state, :zip_code ], unique: true
   end
 end

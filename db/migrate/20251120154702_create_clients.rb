@@ -5,7 +5,7 @@ class CreateClients < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
-    
+
     # ensure name uniqueness at the database level
     add_index :clients, :name, unique: true
   end

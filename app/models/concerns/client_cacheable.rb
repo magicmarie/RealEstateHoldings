@@ -10,6 +10,6 @@ module ClientCacheable
 
   # Clear the cached clients with definitions
   def clear_clients_cache
-    Rails.cache.delete('clients_with_definitions')
+    Rails.cache.delete("clients_with_definitions")
   end
 end

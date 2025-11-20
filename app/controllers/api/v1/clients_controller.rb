@@ -1,9 +1,8 @@
 class Api::V1::ClientsController < ApplicationController
-
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
-    clients = Rails.cache.fetch('clients_with_definitions', expires_in: 1.hour) do
+    clients = Rails.cache.fetch("clients_with_definitions", expires_in: 1.hour) do
       Client.includes(:custom_field_definitions).order(:name).to_a
     end
 

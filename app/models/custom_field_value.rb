@@ -18,17 +18,17 @@ class CustomFieldValue < ApplicationRecord
     definition = custom_field_definition
 
     case definition.field_type
-    when 'number'
+    when "number"
       begin
         Float(value)
       rescue ArgumentError, TypeError
         errors.add(:value, "must be a valid number for field '#{definition.field_name}'")
       end
-    when 'enum_type'
+    when "enum_type"
       unless definition.enum_options.include?(value)
         errors.add(:value, "must be one of [#{definition.enum_options.join(', ')}] for field '#{definition.field_name}'")
       end
-    when 'freeform'
+    when "freeform"
       # Any string is valid
     end
   end

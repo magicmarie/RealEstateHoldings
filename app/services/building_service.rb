@@ -20,7 +20,7 @@ class BuildingService
       end
     end
   rescue ActiveRecord::RecordInvalid => e
-    @errors = [e.message]
+    @errors = [ e.message ]
     false
   end
 
@@ -38,7 +38,7 @@ class BuildingService
       end
     end
   rescue ActiveRecord::RecordInvalid => e
-    @errors = [e.message]
+    @errors = [ e.message ]
     false
   end
 

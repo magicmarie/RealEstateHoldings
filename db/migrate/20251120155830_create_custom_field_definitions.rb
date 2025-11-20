@@ -9,6 +9,6 @@ class CreateCustomFieldDefinitions < ActiveRecord::Migration[7.2]
       t.timestamps
     end
     # ensure a client cannot have two custom field definitions with the same field name
-    add_index :custom_field_definitions, [:client_id, :field_name], unique: true
+    add_index :custom_field_definitions, [ :client_id, :field_name ], unique: true
   end
 end

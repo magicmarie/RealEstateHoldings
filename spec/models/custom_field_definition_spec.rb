@@ -66,7 +66,7 @@ RSpec.describe CustomFieldDefinition, type: :model do
     end
 
     it 'accepts enum_type field type' do
-      field_def = CustomFieldDefinition.create!(client: client, field_name: 'property_type', field_type: :enum_type, enum_options: ['Commercial', 'Residential'])
+      field_def = CustomFieldDefinition.create!(client: client, field_name: 'property_type', field_type: :enum_type, enum_options: [ 'Commercial', 'Residential' ])
       expect(field_def.field_type).to eq('enum_type')
     end
   end

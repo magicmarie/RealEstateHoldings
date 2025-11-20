@@ -77,6 +77,6 @@ class Api::V1::BuildingsController < ApplicationController
   end
 
   def record_invalid(exception)
-    render json: { errors: [exception.message] }, status: :unprocessable_entity
+    render json: { errors: [ exception.message ] }, status: :unprocessable_entity
   end
 end
