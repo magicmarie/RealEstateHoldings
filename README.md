@@ -24,7 +24,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed design decisions.
 ```bash
 # Install dependencies
 bundle install
-npm install
+yarn install
 
 # Setup database
 cp .env.example .env  # Update DB credentials
@@ -53,40 +53,7 @@ Visit http://localhost:3000
 
 See [API_DOCUMENTATION.md](API_DOCUMENTATION.md) for complete API reference.
 
-**Quick Examples:**
 
-```bash
-# List all buildings
-curl http://localhost:3000/api/v1/buildings
-
-# Create a building
-curl -X POST http://localhost:3000/api/v1/buildings \
-  -H "Content-Type: application/json" \
-  -d '{
-    "building": {
-      "client_id": 1,
-      "address": "123 Main St",
-      "city": "Boston",
-      "state": "MA",
-      "zip_code": "02101",
-      "custom_fields": {
-        "square_footage": "5000",
-        "year_built": "1990"
-      }
-    }
-  }'
-
-# Update a building
-curl -X PATCH http://localhost:3000/api/v1/buildings/1 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "building": {
-      "custom_fields": {
-        "square_footage": "5500"
-      }
-    }
-  }'
-```
 
 ## 🗄️ Database Schema
 
@@ -102,42 +69,14 @@ Clients (5 seeded)
 - **Freeform**: Text strings (e.g., description, special features)
 - **Enum**: Predefined choices (e.g., property type, condition)
 
-## ✅ Testing
 
-**50 passing tests** covering:
-- Model validations and associations
-- Service layer business logic
-- API endpoints and error handling
-- Custom field type validation
 
 ```bash
 # Run all tests
 bundle exec rspec
 
-# Run specific test suites
-bundle exec rspec spec/models
-bundle exec rspec spec/requests
-bundle exec rspec spec/services
-```
 
-## 🔑 Key Features
 
-### Backend
-- ✅ RESTful API with proper HTTP status codes
-- ✅ Dynamic custom fields per client
-- ✅ Comprehensive error handling
-- ✅ N+1 query prevention (eager loading)
-- ✅ Caching for performance
-- ✅ Database indexes for scalability
-- ✅ Service layer for business logic
-- ✅ 50 RSpec tests
-
-### Frontend (TODO)
-- [ ] Building list with cards
-- [ ] Create/Edit building forms
-- [ ] Dynamic custom field rendering
-- [ ] API integration with hooks
-- [ ] Form validation
 
 ## 📁 Project Structure
 
@@ -185,24 +124,21 @@ db/
 
 ## 🚦 Production Readiness Checklist
 
-Backend (Complete):
+Backend:
 - [x] Database schema with proper indexes
-- [x] API endpoints with error handling
+- [x] API endpoints with error handling  
 - [x] Validation and business logic
-- [x] Comprehensive test coverage
-- [x] Documentation
+- [x] Service layer with transactions
+- [x] Performance optimizations (N+1 prevention, caching)
+- [x] Comprehensive test coverage (53 passing tests)
+- [x] Documentation (README, API docs, Architecture)
 
-Frontend (In Progress):
-- [ ] React components
-- [ ] API integration
-- [ ] Form handling
-- [ ] Error handling
-
-## 📝 Requirements
-
-See [REQUIREMENTS.md](REQUIREMENTS.md) for the original specification.
-
-## 🤝 Contributing
-
-This is a take-home assessment project. See commit history for implementation timeline.
+Frontend:
+- [x] React components with proper separation
+- [x] API integration with error handling
+- [x] Create/Edit forms with dynamic custom fields
+- [x] Pagination with navigation
+- [x] React performance optimizations (memo, useCallback, useMemo)
+- [x] DRY principles with reusable components
+- [x] State management with hooks
 

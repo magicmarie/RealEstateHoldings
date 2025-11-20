@@ -9,7 +9,16 @@ class Api::V1::BuildingsController < ApplicationController
       .page(params[:page] || 1)
       .per(params[:per_page] || 20)
 
-    render json: buildings, each_serializer: BuildingSerializer, meta: pagination_meta(buildings)
+    render json: {
+      buildings: ActiveModelSerializers::SerializableResource.new(buildings, each_serializer: BuildingSerializer).as_json,
+      meta: pagination_meta(buildings)
+    }
+  end
+
+  def metadata
+    render json: {
+      us_states: Building::US_STATES
+    }
   end
 
   def show

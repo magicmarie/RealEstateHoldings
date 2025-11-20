@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :clients, only: [:index, :show]
-      resources :buildings, only: [:index, :show, :create, :update]
+      resources :buildings, only: [:index, :show, :create, :update] do
+        collection do
+          get :metadata
+        end
+      end
     end
   end
 
