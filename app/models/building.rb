@@ -9,7 +9,7 @@ class Building < ApplicationRecord
   has_many :custom_field_values, dependent: :destroy
   has_many :custom_field_definitions, through: :custom_field_values
 
-  validates :address, presence: true, length: { maximum: 255 }
+  validates :address, uniqueness: { scope: [:city, :state, :zip_code], message: "already exists at this location" }
   validates :city, length: { maximum: 100 }
   validates :state, presence: true,
                     format: { with: /\A[A-Z]{2}\z/, message: "must be 2-letter state code" },

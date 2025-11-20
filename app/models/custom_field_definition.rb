@@ -1,8 +1,10 @@
 class CustomFieldDefinition < ApplicationRecord
+  include ClientCacheable
+
   belongs_to :client
   has_many :custom_field_values, dependent: :destroy
 
-  enum field_type: { number: 0, freeform: 1, enum_type: 2 }
+  enum :field_type, { number: 0, freeform: 1, enum_type: 2 }
 
   serialize :enum_options, coder: JSON
 
