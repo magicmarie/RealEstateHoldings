@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_20_160743) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_27_204007) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_20_160743) do
     t.datetime "updated_at", null: false
     t.index ["client_id", "address", "city", "state", "zip_code"], name: "idx_on_client_id_address_city_state_zip_code_54d40e2fe2", unique: true
     t.index ["client_id"], name: "index_buildings_on_client_id"
+    t.index ["created_at"], name: "index_buildings_on_created_at"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -35,8 +36,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_20_160743) do
 
   create_table "custom_field_definitions", force: :cascade do |t|
     t.bigint "client_id", null: false
-    t.string "field_name", null: false
-    t.integer "field_type", null: false
+    t.string "field_name"
+    t.integer "field_type"
     t.text "enum_options"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

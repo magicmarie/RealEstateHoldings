@@ -55,9 +55,12 @@ class BuildingService
   def save_custom_field_values(custom_fields)
     return unless custom_fields.present?
 
+    # Load all definitions once to avoid N+1 queries
+    definitions_by_name = @building.client.custom_field_definitions.index_by(&:field_name)
+
     custom_fields.each do |field_name, value|
-      # Find the field definition for this client
-      field_def = @building.client.custom_field_definitions.find_by(field_name: field_name)
+      # Find the field definition from the preloaded hash
+      field_def = definitions_by_name[field_name]
       next unless field_def
 
       # Find or initialize the custom field value
